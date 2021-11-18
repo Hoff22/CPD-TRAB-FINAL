@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.o -o CPD_TRAB_FINAL 
