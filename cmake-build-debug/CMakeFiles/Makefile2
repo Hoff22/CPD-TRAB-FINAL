@@ -81,12 +81,12 @@ clean: CMakeFiles/CPD_TRAB_FINAL.dir/clean
 CMakeFiles/CPD_TRAB_FINAL.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target CPD_TRAB_FINAL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target CPD_TRAB_FINAL"
 .PHONY : CMakeFiles/CPD_TRAB_FINAL.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CPD_TRAB_FINAL.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/CPD_TRAB_FINAL.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/CPD_TRAB_FINAL.dir/rule

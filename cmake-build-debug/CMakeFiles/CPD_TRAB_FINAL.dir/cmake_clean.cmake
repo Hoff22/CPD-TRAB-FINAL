@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o"
+  "CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o"
   "CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.o"
   "CPD_TRAB_FINAL"
   "CPD_TRAB_FINAL.pdb"
