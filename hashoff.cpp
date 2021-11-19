@@ -5,16 +5,16 @@ using namespace std;
 template<class T>
 class hashoff {
     vector<vector<T>> table;
-    int M;
+    int M{};
+
 public:
-    hashoff(int m) {
+    explicit hashoff(int m) {
         this->table.resize(m);
         this->M = m;
     }
 
     void insert(T s) {
         int h = f(s);
-
         this->table[h].push_back(s);
     }
 
@@ -41,11 +41,11 @@ private:
         return r;
     }
 
-    int f(string s) {
+    int f(const string &s) {
         int r;
-        for (int i = 0; i < s.length(); i++) {
-            if (s[i] == ' ') continue;
-            r = (31 * r + (s[i] - 'a')) % M;
+        for (char i : s) {
+            if (i == ' ') continue;
+            r = (31 * r + (i - 'a')) % M;
         }
         return r;
     }

@@ -1,5 +1,6 @@
 #include "definitions.h"
 #include "hashoff.cpp"
+#include "trie.h"
 
 using namespace std;
 
@@ -22,6 +23,27 @@ int main() {
 
     cout << "o set tem abgfhj?" << superset.count("abgfhj") << endl;
     cout << "o set tem abobora?" << superset.count("abobora") << endl;
+
+    struct Node *root = nullptr;
+    char ex1[] = "cat";
+    char ex2[] = "cats";
+    char ex3[] = "up";
+    char ex4[] = "bug";
+    char ex5[] = "buy";
+
+    insert(&root, ex1, 1);
+    insert(&root, ex2, 2);
+    insert(&root, ex3, 3);
+    insert(&root, ex4, 4);
+
+    printf("Following is traversal of ternary search tree\n");
+    traverseTST(root);
+
+    printf("\nFollowing are search results for cats, bu and cat respectively\n");
+    cout << searchTST(root, ex2) << endl;
+    cout << searchTST(root, ex5) << endl;
+    cout << searchTST(root, ex1) << endl;
+
 
     return 0;
 }

@@ -79,22 +79,9 @@ CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/main.cpp" -o CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.s
 
-CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o: CMakeFiles/CPD_TRAB_FINAL.dir/flags.make
-CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o: ../definitions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o -c "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.cpp"
-
-CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.cpp" > CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.i
-
-CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.cpp" -o CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.s
-
 CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o: CMakeFiles/CPD_TRAB_FINAL.dir/flags.make
 CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o: ../hashoff.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o -c "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/hashoff.cpp"
 
 CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.i: cmake_force
@@ -105,18 +92,31 @@ CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/hashoff.cpp" -o CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.s
 
+CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o: CMakeFiles/CPD_TRAB_FINAL.dir/flags.make
+CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o: ../trie.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o -c "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.cpp"
+
+CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.cpp" > CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.i
+
+CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.cpp" -o CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.s
+
 # Object files for target CPD_TRAB_FINAL
 CPD_TRAB_FINAL_OBJECTS = \
 "CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.o" \
-"CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o" \
-"CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o"
+"CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o" \
+"CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o"
 
 # External object files for target CPD_TRAB_FINAL
 CPD_TRAB_FINAL_EXTERNAL_OBJECTS =
 
 CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.o
-CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o
 CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o
+CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o
 CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/build.make
 CPD_TRAB_FINAL: CMakeFiles/CPD_TRAB_FINAL.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CPD_TRAB_FINAL"

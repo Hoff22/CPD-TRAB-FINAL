@@ -82,9 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.cpp">
-			<Option target="CPD_TRAB_FINAL"/>
-		</Unit>
 		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.h">
 			<Option target="CPD_TRAB_FINAL"/>
 		</Unit>
@@ -92,6 +89,12 @@
 			<Option target="CPD_TRAB_FINAL"/>
 		</Unit>
 		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/main.cpp">
+			<Option target="CPD_TRAB_FINAL"/>
+		</Unit>
+		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.cpp">
+			<Option target="CPD_TRAB_FINAL"/>
+		</Unit>
+		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.h">
 			<Option target="CPD_TRAB_FINAL"/>
 		</Unit>
 		<Unit filename="/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/CMakeLists.txt">

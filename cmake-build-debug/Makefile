@@ -129,30 +129,6 @@ CPD_TRAB_FINAL/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/build
 .PHONY : CPD_TRAB_FINAL/fast
 
-definitions.o: definitions.cpp.o
-.PHONY : definitions.o
-
-# target to build an object file
-definitions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o
-.PHONY : definitions.cpp.o
-
-definitions.i: definitions.cpp.i
-.PHONY : definitions.i
-
-# target to preprocess a source file
-definitions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.i
-.PHONY : definitions.cpp.i
-
-definitions.s: definitions.cpp.s
-.PHONY : definitions.s
-
-# target to generate assembly for a file
-definitions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.s
-.PHONY : definitions.cpp.s
-
 hashoff.o: hashoff.cpp.o
 .PHONY : hashoff.o
 
@@ -201,6 +177,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+trie.o: trie.cpp.o
+.PHONY : trie.o
+
+# target to build an object file
+trie.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.o
+.PHONY : trie.cpp.o
+
+trie.i: trie.cpp.i
+.PHONY : trie.i
+
+# target to preprocess a source file
+trie.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.i
+.PHONY : trie.cpp.i
+
+trie.s: trie.cpp.s
+.PHONY : trie.s
+
+# target to generate assembly for a file
+trie.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/trie.cpp.s
+.PHONY : trie.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -210,15 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CPD_TRAB_FINAL"
-	@echo "... definitions.o"
-	@echo "... definitions.i"
-	@echo "... definitions.s"
 	@echo "... hashoff.o"
 	@echo "... hashoff.i"
 	@echo "... hashoff.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... trie.o"
+	@echo "... trie.i"
+	@echo "... trie.s"
 .PHONY : help
 
 
