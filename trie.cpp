@@ -32,9 +32,9 @@ void insert(struct Node **root, char *word, int playerID) {
     }
 }
 
-void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
+void auxShowTrie(struct Node *root, char *buffer, int depth) {
     if (root) {
-        traverseTSTUtil(root->left, buffer, depth);
+        auxShowTrie(root->left, buffer, depth);
 
         buffer[depth] = root->data;
         if (root->isEndOfString) {
@@ -42,14 +42,14 @@ void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
             printf("%s\n", buffer);
         }
 
-        traverseTSTUtil(root->eq, buffer, depth + 1);
-        traverseTSTUtil(root->right, buffer, depth);
+        auxShowTrie(root->eq, buffer, depth + 1);
+        auxShowTrie(root->right, buffer, depth);
     }
 }
 
-void traverseTST(struct Node *root) {
+void showTrie(struct Node *root) {
     char buffer[MAX];
-    traverseTSTUtil(root, buffer, 0);
+    auxShowTrie(root, buffer, 0);
 }
 
 int searchTST(struct Node *root, char *word) {

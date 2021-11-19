@@ -36,10 +36,8 @@ int main() {
     insert(&root, ex3, 3);
     insert(&root, ex4, 4);
 
-    printf("Following is traversal of ternary search tree\n");
-    traverseTST(root);
+    showTrie(root);
 
-    printf("\nFollowing are search results for cats, bu and cat respectively\n");
     cout << searchTST(root, ex2) << endl;
     cout << searchTST(root, ex5) << endl;
     cout << searchTST(root, ex1) << endl;

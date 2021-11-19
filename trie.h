@@ -15,8 +15,8 @@ struct Node {
 
 struct Node *newNode(char data, int playerID);
 void insert(struct Node **root, char *word, int playerID) ;
-void traverseTSTUtil(struct Node *root, char *buffer, int depth) ;
-void traverseTST(struct Node *root);
+void auxShowTrie(struct Node *root, char *buffer, int depth) ;
+void showTrie(struct Node *root);
 int searchTST(struct Node *root, char *word);
 
 #endif //CPD_TRAB_FINAL_TRIE_H
