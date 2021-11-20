@@ -1,7 +1,7 @@
 #include "definitions.h"
 
 using namespace std;
-
+// mudanca qualquer
 template<class T>
 class hashoff {
     vector<vector<T>> table;
