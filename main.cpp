@@ -1,3 +1,4 @@
+#include <cstring>
 #include "definitions.h"
 #include "hashoff.cpp"
 #include "trie.h"
@@ -14,7 +15,9 @@ struct tag {
     string str;
     hashoff<int> players = hashoff<int>(30000);
 };
-
+int size(char *kk){
+    return (sizeof kk);
+}
 int main() {
 
     hashoff<string> superset(100);
@@ -24,7 +27,7 @@ int main() {
     cout << "o set tem abgfhj?" << superset.count("abgfhj") << endl;
     cout << "o set tem abobora?" << superset.count("abobora") << endl;
 
-    struct Node *root = nullptr;
+    Node *root = nullptr;
     char ex1[] = "cat";
     char ex2[] = "cats";
     char ex3[] = "up";
@@ -35,13 +38,39 @@ int main() {
     insert(&root, ex2, 2);
     insert(&root, ex3, 3);
     insert(&root, ex4, 4);
+    insert(&root, ex5, 5);
 
-    showTrie(root);
+//    showTrie(root);
 
-    cout << searchTST(root, ex2) << endl;
-    cout << searchTST(root, ex5) << endl;
-    cout << searchTST(root, ex1) << endl;
+//    cout << searchTST(root, ex2) << endl;
+//    cout << searchTST(root, ex5) << endl;
+//    cout << searchTST(root, ex1) << endl;
+
+//    cout << root->playerID << endl;
+
+    static vector<pair<string, int>> namesPre;
+//
+    char kk[] = "b\0";
+    findNames(root, kk, namesPre);
+//
+    for (const auto& i: namesPre){
+        cout << i.first << " - " << i.second << endl;
+    }
+    namesPre.clear();
+    strcpy(kk, "cat");
+    findNames(root, kk, namesPre);
+    //
+    for (const auto& i: namesPre){
+        cout << i.first << " - " << i.second << endl;
+    }
+
+
+    cout << "\n\n";
+    traverseTST(root);
+
+
 
 
     return 0;
 }
+

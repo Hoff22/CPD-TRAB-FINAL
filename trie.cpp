@@ -1,22 +1,26 @@
 #include <string>
+#include <utility>
+#include <vector>
+#include <string>
+#include <cstring>
 #include "trie.h"
+#include <iostream>
 
 using namespace std;
 
 #define MAX 50
 
-struct Node *newNode(char data, int playerID) {
+Node *newNode(char data) {
     auto *temp = (struct Node *) malloc(sizeof(struct Node));
     temp->data = data;
-    temp->playerID = playerID;
-    temp->isEndOfString = false;
-    temp->left = temp->eq = temp->right = nullptr;
+    temp->playerID = -1;
+    temp->left = temp->mid = temp->right = nullptr;
     return temp;
 }
 
-void insert(struct Node **root, char *word, int playerID) {
+void insert(Node **root, char *word, int playerID) {
     if (!(*root))
-        *root = newNode(*word, playerID);
+        *root = newNode(*word);
 
     if ((*word) < (*root)->data)
         insert(&((*root)->left), word, playerID);
@@ -26,33 +30,51 @@ void insert(struct Node **root, char *word, int playerID) {
 
     else {
         if (*(word + 1))
-            insert(&((*root)->eq), word + 1, playerID);
+            insert(&((*root)->mid), word + 1, playerID);
         else
-            (*root)->isEndOfString = true;
+            (*root)->playerID = playerID;
     }
 }
 
-void auxShowTrie(struct Node *root, char *buffer, int depth) {
+void auxShowTrie(Node *root, char *buffer, int depth, vector<pair<string, int>> &namesPre, char *word) {
     if (root) {
-        auxShowTrie(root->left, buffer, depth);
+        auxShowTrie(root->left, buffer, depth, namesPre, word);
 
         buffer[depth] = root->data;
-        if (root->isEndOfString) {
+        if (root->playerID != -1) {
             buffer[depth + 1] = '\0';
+            namesPre.emplace_back(make_pair(buffer, root->playerID));
             printf("%s\n", buffer);
         }
 
-        auxShowTrie(root->eq, buffer, depth + 1);
-        auxShowTrie(root->right, buffer, depth);
+        auxShowTrie(root->mid, buffer, depth + 1, namesPre, word);
+        auxShowTrie(root->right, buffer, depth, namesPre, word);
     }
 }
 
-void showTrie(struct Node *root) {
+void showTrie(Node *root, vector<pair<string, int>> &namesPre, char *word, int size) {
     char buffer[MAX];
-    auxShowTrie(root, buffer, 0);
+    strcpy(buffer, word);
+    auxShowTrie(root, buffer, size, namesPre, word);
 }
 
-int searchTST(struct Node *root, char *word) {
+void findNames(Node *root, char *name, vector<pair<string, int>> &namesPre, int size) {
+    if (root) {
+        if (name[0] == '\0')
+            showTrie(root, namesPre, name - size, size);
+        else if (root->data == name[0])
+            if (name[1] == '\0')
+                showTrie(root, namesPre, name - size, size);
+            else
+                findNames(root->mid, name + 1, namesPre, size + 1);
+        else if (root->data > name[0])
+            findNames(root->left, name, namesPre, size);
+        else if (root->data < name[0])
+            findNames(root->right, name, namesPre, size);
+    }
+}
+
+int searchTST(Node *root, char *word) {
     if (!root)
         return -1;
 
@@ -65,6 +87,35 @@ int searchTST(struct Node *root, char *word) {
     if (*(word + 1) == '\0')
         return root->playerID;
 
-    return searchTST(root->eq, word + 1);
-
+    return searchTST(root->mid, word + 1);
 }
+
+// A recursive function to traverse Ternary Search Tree
+void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
+    if (root) {
+        // First traverse the left subtree
+        traverseTSTUtil(root->left, buffer, depth);
+
+        // Store the character of this node
+        buffer[depth] = root->data;
+        if (root->playerID != -1) {
+            buffer[depth + 1] = '\0';
+            printf("%s\n", buffer);
+        }
+
+        // Traverse the subtree using equal pointer (middle subtree)
+        traverseTSTUtil(root->mid, buffer, depth + 1);
+
+        // Finally Traverse the right subtree
+        traverseTSTUtil(root->right, buffer, depth);
+    }
+}
+
+// The main function to traverse a Ternary Search Tree.
+// It mainly uses traverseTSTUtil()
+void traverseTST(struct Node *root) {
+    char buffer[MAX];
+    traverseTSTUtil(root, buffer, 0);
+}
+
+
