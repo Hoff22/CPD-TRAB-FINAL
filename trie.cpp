@@ -117,5 +117,3 @@ void traverseTST(struct Node *root) {
     char buffer[MAX];
     traverseTSTUtil(root, buffer, 0);
 }
-
-

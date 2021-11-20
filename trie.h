@@ -15,7 +15,6 @@ struct Node {
 
 Node *newNode(char data);
 void insert(Node **root, char *word, int playerID) ;
-//void auxShowTrie(Node *root, char *buffer, int depth) ;
 void findNames(Node *root, char *name, vector<pair<string, int>> &namesPre, int size=0);
 int searchTST(Node *root, char *word);
 void traverseTST(struct Node *root);

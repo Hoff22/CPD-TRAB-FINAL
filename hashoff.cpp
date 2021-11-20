@@ -26,7 +26,6 @@ public:
             cnt++;
             if (s_ == s) return cnt;
         }
-
         return 0;
     }
 

@@ -15,9 +15,7 @@ struct tag {
     string str;
     hashoff<int> players = hashoff<int>(30000);
 };
-int size(char *kk){
-    return (sizeof kk);
-}
+
 int main() {
 
     hashoff<string> superset(100);
