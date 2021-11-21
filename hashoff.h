@@ -1,21 +1,29 @@
-#include "definitions.h"
+#ifndef CPD_TRAB_FINAL_HASHOFF_H
+#define CPD_TRAB_FINAL_HASHOFF_H
+
+#include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 // mudanca qualquer
 template<class T>
 class hashoff {
-    vector<vector<T>> table;
-    int M{};
 
 public:
+    vector<vector<T>> table;
+    int M;
+    hashoff() {};
+
     explicit hashoff(int m) {
         this->table.resize(m);
         this->M = m;
     }
 
-    void insert(T s) {
+    int insert(T s) {
         int h = f(s);
         this->table[h].push_back(s);
+        return h;
     }
 
     int count(T s) {
@@ -49,3 +57,5 @@ private:
         return r;
     }
 };
+
+#endif //CPD_TRAB_FINAL_TRIE_H

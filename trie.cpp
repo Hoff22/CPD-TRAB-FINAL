@@ -18,7 +18,7 @@ Node *newNode(char data) {
     return temp;
 }
 
-void insert(Node **root, char *word, int playerID) {
+void insert(Node **root, const char *word, int playerID) {
     if (!(*root))
         *root = newNode(*word);
 
@@ -36,15 +36,15 @@ void insert(Node **root, char *word, int playerID) {
     }
 }
 
-void auxShowTrie(Node *root, char *buffer, int depth, vector<pair<string, int>> &namesPre, char *word) {
+void auxShowTrie(Node *root, char *buffer, int depth, vector<pair<string, int>> &namesPre, const char *word) {
     if (root) {
         auxShowTrie(root->left, buffer, depth, namesPre, word);
 
         buffer[depth] = root->data;
         if (root->playerID != -1) {
             buffer[depth + 1] = '\0';
-            namesPre.emplace_back(make_pair(buffer, root->playerID));
-            printf("%s\n", buffer);
+            string tmp = buffer;
+            namesPre.emplace_back(make_pair(tmp, root->playerID));
         }
 
         auxShowTrie(root->mid, buffer, depth + 1, namesPre, word);
@@ -52,19 +52,19 @@ void auxShowTrie(Node *root, char *buffer, int depth, vector<pair<string, int>> 
     }
 }
 
-void showTrie(Node *root, vector<pair<string, int>> &namesPre, char *word, int size) {
+void showTrie(Node *root, vector<pair<string, int>> &namesPre, const char *word, int size) {
     char buffer[MAX];
     strcpy(buffer, word);
     auxShowTrie(root, buffer, size, namesPre, word);
 }
 
-void findNames(Node *root, char *name, vector<pair<string, int>> &namesPre, int size) {
+void findNames(Node *root, const char *name, vector<pair<string, int>> &namesPre, int size) {
     if (root) {
         if (name[0] == '\0')
             showTrie(root, namesPre, name - size, size);
         else if (root->data == name[0])
             if (name[1] == '\0')
-                showTrie(root, namesPre, name - size, size);
+                showTrie(root->mid, namesPre, name - size, size + 1);
             else
                 findNames(root->mid, name + 1, namesPre, size + 1);
         else if (root->data > name[0])
@@ -100,7 +100,6 @@ void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
         buffer[depth] = root->data;
         if (root->playerID != -1) {
             buffer[depth + 1] = '\0';
-            printf("%s\n", buffer);
         }
 
         // Traverse the subtree using equal pointer (middle subtree)
