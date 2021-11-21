@@ -1,10 +1,8 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <string>
 #include <cstring>
 #include "trie.h"
-#include <iostream>
 
 using namespace std;
 

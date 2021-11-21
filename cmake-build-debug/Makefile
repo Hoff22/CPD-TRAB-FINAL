@@ -129,29 +129,29 @@ CPD_TRAB_FINAL/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/build
 .PHONY : CPD_TRAB_FINAL/fast
 
-hashoff.o: hashoff.cpp.o
-.PHONY : hashoff.o
+definitions.o: definitions.cpp.o
+.PHONY : definitions.o
 
 # target to build an object file
-hashoff.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.o
-.PHONY : hashoff.cpp.o
+definitions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.o
+.PHONY : definitions.cpp.o
 
-hashoff.i: hashoff.cpp.i
-.PHONY : hashoff.i
+definitions.i: definitions.cpp.i
+.PHONY : definitions.i
 
 # target to preprocess a source file
-hashoff.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.i
-.PHONY : hashoff.cpp.i
+definitions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.i
+.PHONY : definitions.cpp.i
 
-hashoff.s: hashoff.cpp.s
-.PHONY : hashoff.s
+definitions.s: definitions.cpp.s
+.PHONY : definitions.s
 
 # target to generate assembly for a file
-hashoff.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/hashoff.cpp.s
-.PHONY : hashoff.cpp.s
+definitions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPD_TRAB_FINAL.dir/build.make CMakeFiles/CPD_TRAB_FINAL.dir/definitions.cpp.s
+.PHONY : definitions.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -210,9 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CPD_TRAB_FINAL"
-	@echo "... hashoff.o"
-	@echo "... hashoff.i"
-	@echo "... hashoff.s"
+	@echo "... definitions.o"
+	@echo "... definitions.i"
+	@echo "... definitions.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

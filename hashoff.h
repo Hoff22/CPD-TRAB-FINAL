@@ -5,15 +5,19 @@
 #include <vector>
 #include <string>
 
+
 using namespace std;
+
+
 // mudanca qualquer
 template<class T>
 class hashoff {
 
 public:
     vector<vector<T>> table;
-    int M;
-    hashoff() {};
+    int M{};
+
+    hashoff() = default;;
 
     explicit hashoff(int m) {
         this->table.resize(m);
@@ -56,6 +60,16 @@ private:
         }
         return r;
     }
+
+//    int f(xxx s_) {
+//        string s = xxx;
+//        int r;
+//        for (char i : s) {
+//            if (i == ' ') continue;
+//            r = (31 * r + (i - 'a')) % M;
+//        }
+//        return r;
+//    }
 };
 
-#endif //CPD_TRAB_FINAL_TRIE_H
+#endif //CPD_TRAB_FINAL_HASHOFF_H
