@@ -10,7 +10,7 @@
 
 #define N 300000
 
-void loadPlayers(Node **trie_Names, int positions[N], string names[N]);
+void loadPlayers(Node **trie_Names, long positions[N], string names[N]);
 
 void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]);
 

@@ -1,4 +1,5 @@
-#include <cstring>
+#include <iomanip>
+#include <bitset>
 #include "hashoff.h"
 #include "definitions.h"
 #include "trie.h"
@@ -29,7 +30,7 @@ string posCodes[17]{
 
 float ratings[N];
 int count[N];
-int positions[N]; // bitmask 21 positions
+long positions[N]; // bitmask 17 positions
 
 string names[N];
 
@@ -44,30 +45,63 @@ struct tag {
 
 hashoff<tag> tags[N];
 
-void searchByName(Node *root, const string& name) {
-    vector<pair<string, int>> namesPre;
-    findNames(root, name.c_str(), namesPre);
-    for (const auto& i:namesPre) {
-        cout << i.first << "\t\t" << i.second << "\t\t";
+void printPositions(long posCode) {
+    string binary = bitset<17>(posCode).to_string();
+    int qtde{0};
 
-
+    for (int i = 0; i < 17; ++i) {
+        if (binary[16 - i] == '1') {
+            cout << posCodes[i] << "  ";
+            qtde++;
+        }
     }
 
-
+    if (qtde == 1)
+        cout << "      \t";
+    else if (qtde == 2)
+        cout << "   \t";
+    else if (qtde == 3)
+        cout << "\t";
 }
 
+void searchByName(Node *root, const string &name) {
+    vector<pair<string, int>> namesPre;
+    findNames(root, name.c_str(), namesPre);
+    cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "POSITIONS\t\t";
+    cout << "RATING\t\t" << "COUNT";
+    for (const auto &i:namesPre) {
+        cout << endl << i.second << "\t\t" << i.first;
+        cout << string(50 - i.first.size(), ' ');
+        printPositions(positions[i.second]);
+        printf("%.5f\t\t", ratings[i.second] / (float) count[i.second]);
+        cout << count[i.second];
+    }
+    cout << "\n";
+}
 
 int main() {
-
     // initialize hashes
-    for (auto & usersRating : usersRatings) {
+    for (auto &usersRating : usersRatings) {
         usersRating = hashoff<int>(10);
     }
-
     loadPlayers(&trie_Names, positions, names);
-
     loadRatings(ratings, count, usersRatings);
 
+//    const char *name = "Bernardo";
+//    vector<pair<string, int>> namesPre;
+//    findNames(trie_Names, name, namesPre);
+
+//    for (const auto& i:namesPre) {
+//        cout << i.first << "  " << i.second << endl;
+//    }
+//    cout << positions[158023] << endl;
+
+//    cout << (aux >> 0);
+//    cout << positions[158023] << endl;
+//    cout << positions[2] << endl;
+//    cout << positions[4] << endl;
+//    printPositions(positions[158023]); cout << endl;
+    searchByName(trie_Names, "Rafael");
 
     return 0;
 }

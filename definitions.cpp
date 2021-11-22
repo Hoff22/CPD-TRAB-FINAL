@@ -25,9 +25,9 @@ using namespace std;
 // 15 : LWB
 // 16 : LB
 
-int parsePositions(string list) {
+long parsePositions(string list) {
 
-    int mask = 0;
+    long mask = 0;
 
     if (list[list.size() - 1] == '"') list[list.size() - 1] = ',';
     else list += ',';
@@ -42,67 +42,48 @@ int parsePositions(string list) {
         if (list[i] == ',') {
             string cur_pos = list.substr(j, (i - j));
 
-            if (cur_pos == "ST") {
-                //
+            if (cur_pos == "ST")
                 mask |= (1 << 0);
-            } else if (cur_pos == "CF") {
-                //
+            else if (cur_pos == "CF")
                 mask |= (1 << 1);
-            } else if (cur_pos == "CAM") {
-                //
+            else if (cur_pos == "CAM")
                 mask |= (1 << 2);
-            } else if (cur_pos == "CM") {
-                //
+            else if (cur_pos == "CM")
                 mask |= (1 << 3);
-            } else if (cur_pos == "CDM") {
-                //
+            else if (cur_pos == "CDM")
                 mask |= (1 << 4);
-            } else if (cur_pos == "GK") {
-                //
+            else if (cur_pos == "GK")
                 mask |= (1 << 5);
-            } else if (cur_pos == "CB") {
-                //
+            else if (cur_pos == "CB")
                 mask |= (1 << 6);
-            } else if (cur_pos == "RF") {
-                //
+            else if (cur_pos == "RF")
                 mask |= (1 << 7);
-            } else if (cur_pos == "RW") {
-                //
+            else if (cur_pos == "RW")
                 mask |= (1 << 8);
-            } else if (cur_pos == "RM") {
-                //
+            else if (cur_pos == "RM")
                 mask |= (1 << 9);
-            } else if (cur_pos == "RWB") {
-                //
+            else if (cur_pos == "RWB")
                 mask |= (1 << 10);
-            } else if (cur_pos == "RB") {
-                //
+            else if (cur_pos == "RB")
                 mask |= (1 << 11);
-            } else if (cur_pos == "LF") {
-                //
+            else if (cur_pos == "LF")
                 mask |= (1 << 12);
-            } else if (cur_pos == "LW") {
-                //
+            else if (cur_pos == "LW")
                 mask |= (1 << 13);
-            } else if (cur_pos == "LM") {
-                //
+            else if (cur_pos == "LM")
                 mask |= (1 << 14);
-            } else if (cur_pos == "LWB") {
-                //
+            else if (cur_pos == "LWB")
                 mask |= (1 << 15);
-            } else if (cur_pos == "LB") {
-                //
+            else if (cur_pos == "LB")
                 mask |= (1 << 16);
-            }
 
             j = i + 1;
         }
     }
-
     return mask;
 }
 
-void loadPlayers(Node **trie_Names, int positions[N], string names[N]) {
+void loadPlayers(Node **trie_Names, long positions[N], string names[N]) {
     ifstream file("players.csv");
 
     string aux;
@@ -149,27 +130,22 @@ void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]) {
         file >> user_id;
 
         // wasted comma
-        virgula;
         file >> virgula;
 
         // read player
         file >> player_id;
 
         // wasted comma
-        virgula;
         file >> virgula;
 
         // read user's raiting for said player
         file >> user_rating;
 
-        //
         ratings[player_id] += user_rating;
         count[player_id]++;
 
         usersRatings[user_id].insert(player_id);
     }
-
-
     file.close();
 }
 
@@ -188,14 +164,12 @@ void loadTags(hashoff<string> tags[N]) {
         file >> user_id;
 
         // wasted comma
-        virgula;
         file >> virgula;
 
         // read player
         file >> player_id;
 
         // wasted comma
-        virgula;
         file >> virgula;
 
         // read name
