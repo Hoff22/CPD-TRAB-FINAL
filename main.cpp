@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <bitset>
 #include <algorithm>
+#include <chrono>
 #include "hashoff.h"
 #include "definitions.h"
 #include "trie.h"
@@ -39,7 +40,7 @@ string names[N];
 
 Node *trieNames = nullptr;
 
-hashoff<int> usersRatings[N];
+hashRating usersRatings(20000);
 
 hashtag tags(200000);
 
@@ -56,6 +57,7 @@ vector<string> splitLine(const string &str, const string &delimiter = " ") {
         start = end + delimiter.size();
         end = str.find(delimiter, start);
     }
+
     temp = str.substr(start, end - start);
     if (temp != " " && !temp.empty()) vector.emplace_back(temp);
     return vector;
@@ -66,7 +68,7 @@ int Partition(vector<int> &v, int start, int end) {
     int pivot = end;
     int j = start;
     for (int i = start; i < end; ++i)
-        if (ratings[v[i]] / (float) ratingCount[v[i]] > ratings[v[pivot]] / (float) ratingCount[v[pivot]]) {
+        if (ratings[v[i]] / ((float) ratingCount[v[i]] + (ratingCount[v[i]] == 0)) > ratings[v[pivot]] / ((float) ratingCount[v[pivot]] + (ratingCount[v[pivot]] == 0))) {
             swap(v[i], v[j]);
             ++j;
         }
@@ -74,11 +76,32 @@ int Partition(vector<int> &v, int start, int end) {
     return j;
 }
 
-void sortByAverage(vector<int> &v, int start, int end) {
+void GuiSort(vector<int> &v, int start, int end) {
     if (start < end) {
         int p = Partition(v, start, end);
-        sortByAverage(v, start, p - 1);
-        sortByAverage(v, p + 1, end);
+        GuiSort(v, start, p - 1);
+        GuiSort(v, p + 1, end);
+    }
+}
+
+// last element is taken as pivot
+int Partition(vector<pair<int,float>> &v, int start, int end) {
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i)
+        if (v[i].second > v[pivot].second) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    swap(v[j], v[pivot]);
+    return j;
+}
+
+void GuiSort(vector<pair<int,float>> &v, int start, int end) {
+    if (start < end) {
+        int p = Partition(v, start, end);
+        GuiSort(v, start, p - 1);
+        GuiSort(v, p + 1, end);
     }
 }
 
@@ -107,20 +130,35 @@ void printTable(const vector<int> &ids) {
         cout << endl << id << "\t\t" << names[id];
         cout << string(50 - names[id].size(), ' ');
         printPositions(id);
-        cout << setprecision(5) << ratings[id] / (float) ratingCount[id] << "\t\t";
+        if(ratingCount[id] == 0){
+            cout << "noRate" << "\t\t";
+        }
+        else{
+            cout << setprecision(5) << ratings[id] / (float) ratingCount[id] << "\t\t";
+        }
         cout << ratingCount[id];
     }
     cout << "\n";
 }
 
-void printUsrTable(const vector<int> &ids) {
-    cout << "FIFA_ID\t\t" << "NAME" << string(37, ' ') << "GLOBAL_RATING\t   " << "COUNT";
-    for (auto id : ids) {
+void printUsrTable(vector<pair<int,float>> &data) {
+    cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "GLOBAL_RATING\t\t" << "COUNT\t\t" << "RATING";
+    GuiSort(data, 0, data.size()-1);
+    for (auto player : data) {
+        int id = player.first;
+        float user_rating = player.second;
+
         float media = ratings[id] / (float) ratingCount[id];
-        cout << endl << id << string(10 - to_string(id).size(), ' ') << names[id];
+        cout << endl << id << "\t\t" << names[id];
         cout << string(50 - names[id].size(), ' ');
-        cout << fixed << setprecision(5) << media << "\t\t";
-        cout << ratingCount[id];
+        if(media == 0){
+            cout << "noRate" << "\t\t";
+        }
+        else{
+            cout << fixed << setprecision(5) << media << "\t\t";
+        }
+        cout << ratingCount[id]<< "\t\t";
+        cout << fixed << setprecision(1) << user_rating;
     }
     cout << "\n";
 }
@@ -151,25 +189,41 @@ void searchByTag(const string &t) {
     vector<string> requestedTags = splitLine(t, "'");
 
     vector<int> aux;
-    if (tags.count(requestedTags[0]))
+    if (tags.count(requestedTags[0])){
         aux = tags.getData(requestedTags[0]);
+    }
+    else{
+        cout << "inexistent tag\n";
+        return;
+    }
 
-    for (int i = 1; i < requestedTags.size(); i++)
-        if (tags.count(requestedTags[i]))
+    for (int i = 1; i < requestedTags.size(); i++){
+        if (tags.count(requestedTags[i])){
             aux = intersection(aux, tags.getData(requestedTags[i]));
-
+        }
+        else{
+            cout << "inexistent tag\n";
+            return;
+        }
+    }
     printTable(aux);
 }
 
 void searchTopPos(int pos, string info) {
     info.erase(remove(info.begin(), info.end(), '\''), info.end());
     vector<int> aux;
-    for (int i = 0; i < POS_N; i++)
+    for (int i = 0; i < POS_N; i++){
         if (posCodes[i] == info) {
             aux = positions[i].getData(); break;
         }
+    }
 
-    sortByAverage(aux, 0, (int) aux.size() - 1);
+    if(aux.size() == 0){
+        cout << "no player with this tag\n";
+        return;
+    }
+
+    GuiSort(aux, 0, (int) aux.size() - 1);
     if (aux.size() > pos)
         aux.resize(pos);
     printTable(aux);
@@ -201,7 +255,7 @@ void mainLoop() {
         if (type == "player") {
             searchByName(trieNames, info);
         } else if (type == "user") {
-            vector<int> aux = usersRatings[stoi(info)].getData();
+            vector<pair<int,float>> aux = usersRatings.getData(stoi(info));
             printUsrTable(aux);
         } else if (type.substr(0, 3) == "top") {
             searchTopPos(stoi(type.substr(3, 5)), info);
@@ -220,17 +274,23 @@ void mainLoop() {
 }
 
 int main() {
-    // initialize hashes
-//    for (auto &usersRating : usersRatings) {
-//        usersRating = hashoff<int>(10);
-//    }
-//    for (auto &position : positions) {
-//        position = hashoff<int>(3000);
-//    }
-//    loadPlayers(&trieNames, positions, names);
-//    loadRatings(ratings, ratingCount, usersRatings);
-//    loadTags(tags);
+//initialize hashes
+    cout << "Processando dados...\n";
+    cout.flush();
 
+    auto start = chrono::high_resolution_clock::now();
+    for (auto &position : positions) {
+        position = hashoff<int>(3000);
+    }
+
+    loadPlayers(&trieNames, positions, names);
+    loadRatings(ratings, ratingCount, usersRatings);
+    loadTags(tags);
+    auto stop = chrono::high_resolution_clock::now();
+
+    auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
+
+    cout << "Dados processados em " << duration.count() << " segundos" << endl; 
 
     mainLoop();
 

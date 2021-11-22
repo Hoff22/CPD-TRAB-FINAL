@@ -8,6 +8,11 @@
 
 using namespace std;
 
+struct userRating{
+    int user_id;
+    vector<pair<int,float>> player_ratings;
+};
+
 // mudanca qualquer
 template<class T>
 class hashoff {
@@ -69,6 +74,8 @@ private:
         }
         return r;
     }
+
+    
 };
 
 struct tag {
@@ -144,6 +151,67 @@ private:
        }
        return r;
    }
+};
+
+class hashRating {
+
+public:
+    vector<vector<userRating>> table;
+    int M{};
+
+    explicit hashRating(int m) {
+        this->table.resize(m);
+        this->M = m;
+    }
+
+    int insert(int user_id, int player_id, float rate) {
+        int h = f(user_id);
+        // search for an already existing instance of the tag in the hash
+        for(auto& r : this->table[h]){
+            if(r.user_id == user_id){
+                r.player_ratings.push_back({player_id, rate});
+                return h;
+            }
+        }
+
+        // creates a new tag in the hash with the id
+        userRating new_ur;
+        new_ur.user_id = user_id;
+        new_ur.player_ratings.push_back({player_id, rate});
+        this->table[h].push_back(new_ur);
+        return h;
+    }
+
+    int count(int user_id) {
+        int h = f(user_id);
+        int cnt = 0;
+
+        for (userRating s_ : this->table[h]) {
+            cnt++;
+            if (s_.user_id == user_id) return cnt;
+        }
+        return 0;
+    }
+
+    vector<pair<int,float>> getData(const int user_id){
+        int h = f(user_id);
+        for (userRating s_ : this->table[h]) {
+            if (s_.user_id == user_id){
+                return s_.player_ratings;
+            }
+        }
+        vector<pair<int,float>> a;
+        return a;
+    }
+
+private:
+        int f(int s){
+            int r = s;
+            r = (((r >> 16) ^ r) * 0x119de1f3) % M;
+            r = (((r >> 16) ^ r) * 0x119de1f3) % M;
+            r = ((r >> 16) ^ r) % M;
+            return r;
+        }
 };
 
 

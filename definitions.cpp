@@ -118,7 +118,7 @@ void loadPlayers(Node **trie_Names, hashoff<int> positions[POS_N], string names[
     file.close();
 }
 
-void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]) {
+void loadRatings(float ratings[N], int count[N], hashRating& usersRatings) {
     ifstream file("rating.csv");
 
     string aux;
@@ -147,7 +147,7 @@ void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]) {
         ratings[player_id] += user_rating;
         count[player_id]++;
 
-        usersRatings[user_id].insert(player_id);
+        usersRatings.insert(user_id, player_id, user_rating);
     }
     file.close();
 }
