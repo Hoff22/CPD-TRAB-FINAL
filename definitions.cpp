@@ -4,6 +4,7 @@
 #include "trie.h"
 
 #define N 300000 // max player ID
+#define POS_N 17  // max number of positions
 
 using namespace std;
 
@@ -25,9 +26,9 @@ using namespace std;
 // 15 : LWB
 // 16 : LB
 
-long parsePositions(string list) {
+vector<int> parsePositions(string list) {
 
-    long mask = 0;
+    vector<int> mask;
 
     if (list[list.size() - 1] == '"') list[list.size() - 1] = ',';
     else list += ',';
@@ -43,39 +44,39 @@ long parsePositions(string list) {
             string cur_pos = list.substr(j, (i - j));
 
             if (cur_pos == "ST")
-                mask |= (1 << 0);
+                mask.push_back(0);
             else if (cur_pos == "CF")
-                mask |= (1 << 1);
+                mask.push_back(1);
             else if (cur_pos == "CAM")
-                mask |= (1 << 2);
+                mask.push_back(2);
             else if (cur_pos == "CM")
-                mask |= (1 << 3);
+                mask.push_back(3);
             else if (cur_pos == "CDM")
-                mask |= (1 << 4);
+                mask.push_back(4);
             else if (cur_pos == "GK")
-                mask |= (1 << 5);
+                mask.push_back(5);
             else if (cur_pos == "CB")
-                mask |= (1 << 6);
+                mask.push_back(6);
             else if (cur_pos == "RF")
-                mask |= (1 << 7);
+                mask.push_back(7);
             else if (cur_pos == "RW")
-                mask |= (1 << 8);
+                mask.push_back(8);
             else if (cur_pos == "RM")
-                mask |= (1 << 9);
+                mask.push_back(9);
             else if (cur_pos == "RWB")
-                mask |= (1 << 10);
+                mask.push_back(10);
             else if (cur_pos == "RB")
-                mask |= (1 << 11);
+                mask.push_back(11);
             else if (cur_pos == "LF")
-                mask |= (1 << 12);
+                mask.push_back(12);
             else if (cur_pos == "LW")
-                mask |= (1 << 13);
+                mask.push_back(13);
             else if (cur_pos == "LM")
-                mask |= (1 << 14);
+                mask.push_back(14);
             else if (cur_pos == "LWB")
-                mask |= (1 << 15);
+                mask.push_back(15);
             else if (cur_pos == "LB")
-                mask |= (1 << 16);
+                mask.push_back(16);
 
             j = i + 1;
         }
@@ -83,7 +84,7 @@ long parsePositions(string list) {
     return mask;
 }
 
-void loadPlayers(Node **trie_Names, long positions[N], string names[N]) {
+void loadPlayers(Node **trie_Names, hashoff<int> positions[POS_N], string names[N]) {
     ifstream file("players.csv");
 
     string aux;
@@ -107,7 +108,9 @@ void loadPlayers(Node **trie_Names, long positions[N], string names[N]) {
         getline(file, cur_pos);
 
         // initialize coisas
-        positions[cur_id] = parsePositions(cur_pos);
+        for(int pos : parsePositions(cur_pos)){
+            positions[pos].insert(cur_id);
+        }
         names[cur_id] = cur_name;
         insert(trie_Names, cur_name.c_str(), cur_id);
     }
@@ -149,19 +152,18 @@ void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]) {
     file.close();
 }
 
-void loadTags(hashoff<string> tags[N]) {
-    ifstream file("rating.csv");
+void loadTags(hashtag& tags) {
+    ifstream file("tags.csv");
 
     string aux;
     getline(file, aux);
     while (file) {
-        int user_id;
         int player_id;
         char virgula;
-        string cur_name;
+        string cur_tag;
 
         // read user
-        file >> user_id;
+        file >> player_id; // never used, trhow away
 
         // wasted comma
         file >> virgula;
@@ -173,12 +175,14 @@ void loadTags(hashoff<string> tags[N]) {
         file >> virgula;
 
         // read name
-        getline(file, cur_name);
+        getline(file, cur_tag);
 
-//        tag aux{};
-//        tags[user_id].insert()
+        if(tags.countID({cur_tag, player_id}) ){
+           // cout << cur_tag << " " << player_id << endl;
+            continue;
+        }
+        tags.insert({cur_tag, player_id});
     }
-
 
     file.close();
 }
