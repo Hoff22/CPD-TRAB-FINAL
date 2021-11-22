@@ -87,7 +87,7 @@ public:
         this->M = m;
     }
 
-    int insert(pair<string,int> tag_id) {
+    int insert(const pair<string,int>& tag_id) {
         int h = f(tag_id.first);
         // search for an already existing instance of the tag in the hash
         for(auto& t : this->table[h]){
@@ -105,17 +105,17 @@ public:
         return h;
     }
 
-    int count(string s) {
+    int count(const string& s) {
         int h = f(s);
         int cnt = 0;
 
-        for (tag s_ : this->table[h]) {
+        for (const tag& s_ : this->table[h]) {
             cnt++;
             if (s_.tag_text == s) return cnt;
         }
         return 0;
     }
-    int countID(pair<string,int> tag_id) {
+    int countID(const pair<string,int>& tag_id) {
         int h = f(tag_id.first);
         //cout << this->table[h].size() << endl;
         for (tag s_ : this->table[h]) {
@@ -124,7 +124,7 @@ public:
         return 0;
     }
 
-    vector<int> getData(string s){
+    vector<int> getData(const string& s){
         int h = f(s);
         for (tag s_ : this->table[h]) {
             if (s_.tag_text == s){

@@ -33,7 +33,7 @@ string posCodes[POS_N]{
 
 float ratings[N];
 int ratingCount[N];
-hashoff<int> positions[POS_N]; // bitmask 17 positions
+hashoff<int> positions[POS_N];
 
 string names[N];
 
@@ -74,11 +74,11 @@ int Partition(vector<int> &v, int start, int end) {
     return j;
 }
 
-void Quicksort(vector<int> &v, int start, int end) {
+void sortByAverage(vector<int> &v, int start, int end) {
     if (start < end) {
         int p = Partition(v, start, end);
-        Quicksort(v, start, p - 1);
-        Quicksort(v, p + 1, end);
+        sortByAverage(v, start, p - 1);
+        sortByAverage(v, p + 1, end);
     }
 }
 
@@ -100,7 +100,7 @@ void printPositions(int id) {
         cout << "\t";
 }
 
-void printTabela(const vector<int> &ids) {
+void printTable(const vector<int> &ids) {
     cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "POSITIONS\t";
     cout << "RATING\t\t" << "COUNT";
     for (auto id : ids) {
@@ -108,6 +108,18 @@ void printTabela(const vector<int> &ids) {
         cout << string(50 - names[id].size(), ' ');
         printPositions(id);
         cout << setprecision(5) << ratings[id] / (float) ratingCount[id] << "\t\t";
+        cout << ratingCount[id];
+    }
+    cout << "\n";
+}
+
+void printUsrTable(const vector<int> &ids) {
+    cout << "FIFA_ID\t\t" << "NAME" << string(37, ' ') << "GLOBAL_RATING\t   " << "COUNT";
+    for (auto id : ids) {
+        float media = ratings[id] / (float) ratingCount[id];
+        cout << endl << id << string(10 - to_string(id).size(), ' ') << names[id];
+        cout << string(50 - names[id].size(), ' ');
+        cout << fixed << setprecision(5) << media << "\t\t";
         cout << ratingCount[id];
     }
     cout << "\n";
@@ -123,7 +135,7 @@ void searchByName(Node *root, const string &name) {
         ids.push_back(i.second);
     }
 
-    printTabela(ids);
+    printTable(ids);
 }
 
 vector<int> intersection(vector<int> v1, vector<int> v2) {
@@ -146,41 +158,82 @@ void searchByTag(const string &t) {
         if (tags.count(requestedTags[i]))
             aux = intersection(aux, tags.getData(requestedTags[i]));
 
-    printTabela(aux);
+    printTable(aux);
+}
+
+void searchTopPos(int pos, string info) {
+    info.erase(remove(info.begin(), info.end(), '\''), info.end());
+    vector<int> aux;
+    for (int i = 0; i < POS_N; i++)
+        if (posCodes[i] == info) {
+            aux = positions[i].getData(); break;
+        }
+
+    sortByAverage(aux, 0, (int) aux.size() - 1);
+    if (aux.size() > pos)
+        aux.resize(pos);
+    printTable(aux);
+
+}
+
+void helpDisplay() {
+    cout << " -> Opcoes Disponiveis :\n";
+    cout << " player <name or prefix>\n";
+    cout << " user <userID>\n";
+    cout << " top<N> '<position>'\n";
+    cout << " tags <list of tags>\n";
+    cout << " exit <x>\n";
 }
 
 void mainLoop() {
     string type, info;
-    cout << "comando: " << endl;
-    getline(cin, type, ' ');
-    getline(cin, info);
+    cout << endl;
+    cout << string(10, ' ') << "TRABALHO FINAL - CLASSIFICACAO E PESQUISA DE DADOS\n";
+    cout << string(15, ' ') << "PESQUISA EM DATASET DE FIFA21 - PLAYERS\n";
+    cout << string(17, ' ') << "ARTHUR BITTENCOURT HOFF -- 00324628\n";
+    cout << string(14, ' ') << "LUIS GUILHERME FERNANDES MELO -- 00326620\n\n";
 
-    if (type == "player") {
-        searchByName(trieNames, info);
-    } else if (type == "user") {
+    while (true) {
+        cout << ">> ";
+        getline(cin, type, ' ');
+        getline(cin, info);
 
-    } else if (type.substr(0, 3) == "top") {
-        int num = stoi(type.substr(3, 5));
-
-    } else if (type == "tags") {
-        searchByTag(info);
+        if (type == "player") {
+            searchByName(trieNames, info);
+        } else if (type == "user") {
+            vector<int> aux = usersRatings[stoi(info)].getData();
+            printUsrTable(aux);
+        } else if (type.substr(0, 3) == "top") {
+            searchTopPos(stoi(type.substr(3, 5)), info);
+        } else if (type == "tags") {
+            searchByTag(info);
+        } else if (type == "exit") {
+            cout << "Ending Program..." << endl;
+            break;
+        } else if (type == "help") {
+            helpDisplay();
+        } else {
+            cout << "Invalid command... Try again." << endl;
+        }
+        cout << endl;
     }
 }
 
 int main() {
     // initialize hashes
-    for (auto &usersRating : usersRatings) {
-        usersRating = hashoff<int>(10);
-    }
-    for (auto &position : positions) {
-        position = hashoff<int>(3000);
-    }
-    loadPlayers(&trieNames, positions, names);
-    loadRatings(ratings, ratingCount, usersRatings);
+//    for (auto &usersRating : usersRatings) {
+//        usersRating = hashoff<int>(10);
+//    }
+//    for (auto &position : positions) {
+//        position = hashoff<int>(3000);
+//    }
+//    loadPlayers(&trieNames, positions, names);
+//    loadRatings(ratings, ratingCount, usersRatings);
 //    loadTags(tags);
-//    mainLoop();
+
+
+    mainLoop();
 
 
     return 0;
 }
-
