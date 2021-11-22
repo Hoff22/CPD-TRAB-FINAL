@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <bitset>
+#include <algorithm>
 #include "hashoff.h"
 #include "definitions.h"
 #include "trie.h"
@@ -8,6 +9,7 @@
 #define POS_N 17  // max number of positions
 
 using namespace std;
+
 
 string posCodes[POS_N]{
         "ST",
@@ -30,23 +32,61 @@ string posCodes[POS_N]{
 };
 
 float ratings[N];
-int count[N];
+int ratingCount[N];
 hashoff<int> positions[POS_N]; // bitmask 17 positions
 
 string names[N];
 
-Node *trie_Names = nullptr;
+Node *trieNames = nullptr;
 
 hashoff<int> usersRatings[N];
 
 hashtag tags(200000);
 
+// Funcao para armazenar os dados de um arquivo em um vector
+vector<string> splitLine(const string &str, const string &delimiter = " ") {
+    vector<string> vector;
+    size_t start = 0;
+    size_t end = str.find(delimiter);
+    string temp;
+    while (end != -1) {
+        temp = str.substr(start, end - start);
+        if (temp != " " && !temp.empty()) vector.emplace_back(temp);
+
+        start = end + delimiter.size();
+        end = str.find(delimiter, start);
+    }
+    temp = str.substr(start, end - start);
+    if (temp != " " && !temp.empty()) vector.emplace_back(temp);
+    return vector;
+}
+
+// last element is taken as pivot
+int Partition(vector<int> &v, int start, int end) {
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i)
+        if (ratings[v[i]] / (float) ratingCount[v[i]] > ratings[v[pivot]] / (float) ratingCount[v[pivot]]) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    swap(v[j], v[pivot]);
+    return j;
+}
+
+void Quicksort(vector<int> &v, int start, int end) {
+    if (start < end) {
+        int p = Partition(v, start, end);
+        Quicksort(v, start, p - 1);
+        Quicksort(v, p + 1, end);
+    }
+}
+
 void printPositions(int id) {
-    
     int qtde = 0;
 
-    for(int i = 0; i < POS_N; i++){
-        if(positions[i].count(id)){
+    for (int i = 0; i < POS_N; i++) {
+        if (positions[i].count(id)) {
             cout << posCodes[i] << " ";
             qtde++;
         }
@@ -60,15 +100,15 @@ void printPositions(int id) {
         cout << "\t";
 }
 
-void printTabela(vector<int> ids){
+void printTabela(const vector<int> &ids) {
     cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "POSITIONS\t";
     cout << "RATING\t\t" << "COUNT";
     for (auto id : ids) {
         cout << endl << id << "\t\t" << names[id];
         cout << string(50 - names[id].size(), ' ');
         printPositions(id);
-        cout << setprecision(5) << ratings[id] / (float)count[id] << "\t\t";
-        cout << count[id];
+        cout << setprecision(5) << ratings[id] / (float) ratingCount[id] << "\t\t";
+        cout << ratingCount[id];
     }
     cout << "\n";
 }
@@ -76,18 +116,54 @@ void printTabela(vector<int> ids){
 void searchByName(Node *root, const string &name) {
     vector<pair<string, int>> namesPre;
     findNames(root, name.c_str(), namesPre);
-    
+
     vector<int> ids;
-    for(auto i : namesPre){
+    ids.reserve(namesPre.size());
+    for (const auto &i : namesPre) {
         ids.push_back(i.second);
     }
 
     printTabela(ids);
 }
 
-void searchByTag(string t){
-    if(tags.count(t)){
-        printTabela(tags.getData(t));
+vector<int> intersection(vector<int> v1, vector<int> v2) {
+    vector<int> v3;
+
+    sort(v1.begin(), v1.end());
+    sort(v2.begin(), v2.end());
+    set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+    return v3;
+}
+
+void searchByTag(const string &t) {
+    vector<string> requestedTags = splitLine(t, "'");
+
+    vector<int> aux;
+    if (tags.count(requestedTags[0]))
+        aux = tags.getData(requestedTags[0]);
+
+    for (int i = 1; i < requestedTags.size(); i++)
+        if (tags.count(requestedTags[i]))
+            aux = intersection(aux, tags.getData(requestedTags[i]));
+
+    printTabela(aux);
+}
+
+void mainLoop() {
+    string type, info;
+    cout << "comando: " << endl;
+    getline(cin, type, ' ');
+    getline(cin, info);
+
+    if (type == "player") {
+        searchByName(trieNames, info);
+    } else if (type == "user") {
+
+    } else if (type.substr(0, 3) == "top") {
+        int num = stoi(type.substr(3, 5));
+
+    } else if (type == "tags") {
+        searchByTag(info);
     }
 }
 
@@ -99,26 +175,11 @@ int main() {
     for (auto &position : positions) {
         position = hashoff<int>(3000);
     }
-    loadPlayers(&trie_Names, positions, names);
-    loadRatings(ratings, count, usersRatings);
-    loadTags(tags);
+    loadPlayers(&trieNames, positions, names);
+    loadRatings(ratings, ratingCount, usersRatings);
+//    loadTags(tags);
+//    mainLoop();
 
-//    const char *name = "Bernardo";
-//    vector<pair<string, int>> namesPre;
-//    findNames(trie_Names, name, namesPre);
-
-//    for (const auto& i:namesPre) {
-//        cout << i.first << "  " << i.second << endl;
-//    }
-//    cout << positions[158023] << endl;
-
-//    cout << (aux >> 0);
-//    cout << positions[158023] << endl;
-//    cout << positions[2] << endl;
-//    cout << positions[4] << endl;
-//    printPositions(positions[158023]); cout << endl;
-    // searchByName(trie_Names, "Lionel");
-    searchByTag("Clinical Finisher");
 
     return 0;
 }

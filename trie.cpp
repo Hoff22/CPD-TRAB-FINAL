@@ -72,45 +72,45 @@ void findNames(Node *root, const char *name, vector<pair<string, int>> &namesPre
     }
 }
 
-int searchTST(Node *root, char *word) {
-    if (!root)
-        return -1;
+//int searchTST(Node *root, char *word) {
+//    if (!root)
+//        return -1;
+//
+//    if (*word < (root)->data)
+//        return searchTST(root->left, word);
+//
+//    if (*word > (root)->data)
+//        return searchTST(root->right, word);
+//
+//    if (*(word + 1) == '\0')
+//        return root->playerID;
+//
+//    return searchTST(root->mid, word + 1);
+//}
 
-    if (*word < (root)->data)
-        return searchTST(root->left, word);
-
-    if (*word > (root)->data)
-        return searchTST(root->right, word);
-
-    if (*(word + 1) == '\0')
-        return root->playerID;
-
-    return searchTST(root->mid, word + 1);
-}
-
-// A recursive function to traverse Ternary Search Tree
-void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
-    if (root) {
-        // First traverse the left subtree
-        traverseTSTUtil(root->left, buffer, depth);
-
-        // Store the character of this node
-        buffer[depth] = root->data;
-        if (root->playerID != -1) {
-            buffer[depth + 1] = '\0';
-        }
-
-        // Traverse the subtree using equal pointer (middle subtree)
-        traverseTSTUtil(root->mid, buffer, depth + 1);
-
-        // Finally Traverse the right subtree
-        traverseTSTUtil(root->right, buffer, depth);
-    }
-}
-
-// The main function to traverse a Ternary Search Tree.
-// It mainly uses traverseTSTUtil()
-void traverseTST(struct Node *root) {
-    char buffer[MAX];
-    traverseTSTUtil(root, buffer, 0);
-}
+//// A recursive function to traverse Ternary Search Tree
+//void traverseTSTUtil(struct Node *root, char *buffer, int depth) {
+//    if (root) {
+//        // First traverse the left subtree
+//        traverseTSTUtil(root->left, buffer, depth);
+//
+//        // Store the character of this node
+//        buffer[depth] = root->data;
+//        if (root->playerID != -1) {
+//            buffer[depth + 1] = '\0';
+//        }
+//
+//        // Traverse the subtree using equal pointer (middle subtree)
+//        traverseTSTUtil(root->mid, buffer, depth + 1);
+//
+//        // Finally Traverse the right subtree
+//        traverseTSTUtil(root->right, buffer, depth);
+//    }
+//}
+//
+//// The main function to traverse a Ternary Search Tree.
+//// It mainly uses traverseTSTUtil()
+//void traverseTST(struct Node *root) {
+//    char buffer[MAX];
+//    traverseTSTUtil(root, buffer, 0);
+//}

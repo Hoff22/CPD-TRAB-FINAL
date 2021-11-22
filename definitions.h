@@ -15,6 +15,6 @@ void loadPlayers(Node **trie_Names, hashoff<int> positions[POS_N], string names[
 
 void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]);
 
-void loadTags(hashtag& tags);
+void loadTags(hashtag &tags);
 
 #endif //CPD_TRAB_FINAL_DEFINITIONS_H

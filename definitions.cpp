@@ -108,7 +108,7 @@ void loadPlayers(Node **trie_Names, hashoff<int> positions[POS_N], string names[
         getline(file, cur_pos);
 
         // initialize coisas
-        for(int pos : parsePositions(cur_pos)){
+        for (int pos : parsePositions(cur_pos)) {
             positions[pos].insert(cur_id);
         }
         names[cur_id] = cur_name;
@@ -152,7 +152,7 @@ void loadRatings(float ratings[N], int count[N], hashoff<int> usersRatings[N]) {
     file.close();
 }
 
-void loadTags(hashtag& tags) {
+void loadTags(hashtag &tags) {
     ifstream file("tags.csv");
 
     string aux;
@@ -177,8 +177,7 @@ void loadTags(hashtag& tags) {
         // read name
         getline(file, cur_tag);
 
-        if(tags.countID({cur_tag, player_id}) ){
-           // cout << cur_tag << " " << player_id << endl;
+        if (tags.countID({cur_tag, player_id})) {
             continue;
         }
         tags.insert({cur_tag, player_id});

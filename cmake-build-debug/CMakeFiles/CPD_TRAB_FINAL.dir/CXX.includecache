@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.cpp
-fstream
--
-string
--
-hashoff.h
-/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/hashoff.h
-trie.h
-/home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/trie.h
-
 /home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/definitions.h
 hashoff.h
 /home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/hashoff.h
@@ -34,6 +24,8 @@ string
 iomanip
 -
 bitset
+-
+algorithm
 -
 hashoff.h
 /home/goldenf2/OneDrive/Documents/Faculdade/2021.1/Classificação e Pesquisa de Dados/TrabFinal/CPD-TRAB-FINAL/hashoff.h

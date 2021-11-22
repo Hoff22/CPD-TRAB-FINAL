@@ -16,14 +16,9 @@ struct Node {
     struct Node *left, *mid, *right;
 };
 
-Node *newNode(char data);
-
 void insert(Node **root, const char *word, int playerID);
 
 void findNames(Node *root, const char *name, vector<pair<string, int>> &namesPre, int size = 0);
 
-int searchTST(Node *root, char *word);
-
-void traverseTST(struct Node *root);
 
 #endif //CPD_TRAB_FINAL_TRIE_H
