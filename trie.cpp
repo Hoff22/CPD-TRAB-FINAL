@@ -1,6 +1,3 @@
-#include <string>
-#include <utility>
-#include <vector>
 #include <cstring>
 #include "trie.h"
 

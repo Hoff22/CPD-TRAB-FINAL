@@ -1,10 +1,5 @@
 #include <fstream>
-#include <string>
-#include "hashoff.h"
-#include "trie.h"
-
-#define N 300000 // max player ID
-#define POS_N 17  // max number of positions
+#include "definitions.h"
 
 using namespace std;
 

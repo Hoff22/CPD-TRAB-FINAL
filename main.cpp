@@ -1,13 +1,7 @@
 #include <iomanip>
-#include <bitset>
 #include <algorithm>
 #include <chrono>
-#include "hashoff.h"
 #include "definitions.h"
-#include "trie.h"
-
-#define N 300000 // max player ID
-#define POS_N 17  // max number of positions
 
 using namespace std;
 

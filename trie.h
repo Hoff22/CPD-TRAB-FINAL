@@ -1,7 +1,3 @@
-//
-// Created by goldenf2 on 11/19/21.
-//
-
 #ifndef CPD_TRAB_FINAL_TRIE_H
 #define CPD_TRAB_FINAL_TRIE_H
 
