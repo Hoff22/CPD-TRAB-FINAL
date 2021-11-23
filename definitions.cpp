@@ -118,7 +118,7 @@ void loadPlayers(Node **trie_Names, hashoff<int> positions[POS_N], string names[
     file.close();
 }
 
-void loadRatings(float ratings[N], int count[N], hashRating& usersRatings) {
+void loadRatings(float ratings[N], int count[N], hashRating &usersRatings) {
     ifstream file("rating.csv");
 
     string aux;

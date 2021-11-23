@@ -12,25 +12,8 @@
 using namespace std;
 
 
-string posCodes[POS_N]{
-        "ST",
-        "CF",
-        "CAM",
-        "CM",
-        "CDM",
-        "GK",
-        "CB",
-        "RF",
-        "RW",
-        "RM",
-        "RWB",
-        "RB",
-        "LF",
-        "LW",
-        "LM",
-        "LWB",
-        "LB"
-};
+string posCodes[POS_N]{"ST", "CF", "CAM", "CM", "CDM", "GK", "CB", "RF", "RW", "RM", "RWB", "RB", "LF", "LW", "LM",
+                       "LWB", "LB"};
 
 float ratings[N];
 int ratingCount[N];
@@ -44,8 +27,7 @@ hashRating usersRatings(20000);
 
 hashtag tags(200000);
 
-// Funcao para armazenar os dados de um arquivo em um vector
-vector<string> splitLine(const string &str, const string &delimiter = " ") {
+vector<string> splitLine(const string &str, const string &delimiter) {
     vector<string> vector;
     size_t start = 0;
     size_t end = str.find(delimiter);
@@ -63,12 +45,19 @@ vector<string> splitLine(const string &str, const string &delimiter = " ") {
     return vector;
 }
 
+bool is_number(const std::string &s) {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 // last element is taken as pivot
 int Partition(vector<int> &v, int start, int end) {
     int pivot = end;
     int j = start;
     for (int i = start; i < end; ++i)
-        if (ratings[v[i]] / ((float) ratingCount[v[i]] + (ratingCount[v[i]] == 0)) > ratings[v[pivot]] / ((float) ratingCount[v[pivot]] + (ratingCount[v[pivot]] == 0))) {
+        if (ratings[v[i]] / ((float) ratingCount[v[i]] + (float) (ratingCount[v[i]] == 0)) >
+            ratings[v[pivot]] / ((float) ratingCount[v[pivot]] + (float) (ratingCount[v[pivot]] == 0))) {
             swap(v[i], v[j]);
             ++j;
         }
@@ -76,16 +65,16 @@ int Partition(vector<int> &v, int start, int end) {
     return j;
 }
 
-void GuiSort(vector<int> &v, int start, int end) {
+void sortVector(vector<int> &v, int start, int end) {
     if (start < end) {
         int p = Partition(v, start, end);
-        GuiSort(v, start, p - 1);
-        GuiSort(v, p + 1, end);
+        sortVector(v, start, p - 1);
+        sortVector(v, p + 1, end);
     }
 }
 
 // last element is taken as pivot
-int Partition(vector<pair<int,float>> &v, int start, int end) {
+int Partition(vector<pair<int, float>> &v, int start, int end) {
     int pivot = end;
     int j = start;
     for (int i = start; i < end; ++i)
@@ -97,23 +86,22 @@ int Partition(vector<pair<int,float>> &v, int start, int end) {
     return j;
 }
 
-void GuiSort(vector<pair<int,float>> &v, int start, int end) {
+void sortVector(vector<pair<int, float>> &v, int start, int end) {
     if (start < end) {
         int p = Partition(v, start, end);
-        GuiSort(v, start, p - 1);
-        GuiSort(v, p + 1, end);
+        sortVector(v, start, p - 1);
+        sortVector(v, p + 1, end);
     }
 }
 
 void printPositions(int id) {
     int qtde = 0;
 
-    for (int i = 0; i < POS_N; i++) {
+    for (int i = 0; i < POS_N; i++)
         if (positions[i].count(id)) {
             cout << posCodes[i] << " ";
             qtde++;
         }
-    }
 
     if (qtde == 1)
         cout << "      \t";
@@ -130,10 +118,9 @@ void printTable(const vector<int> &ids) {
         cout << endl << id << "\t\t" << names[id];
         cout << string(50 - names[id].size(), ' ');
         printPositions(id);
-        if(ratingCount[id] == 0){
+        if (ratingCount[id] == 0) {
             cout << "noRate" << "\t\t";
-        }
-        else{
+        } else {
             cout << setprecision(5) << ratings[id] / (float) ratingCount[id] << "\t\t";
         }
         cout << ratingCount[id];
@@ -141,9 +128,9 @@ void printTable(const vector<int> &ids) {
     cout << "\n";
 }
 
-void printUsrTable(vector<pair<int,float>> &data) {
+void printUsrTable(vector<pair<int, float>> &data) {
     cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "GLOBAL_RATING\t\t" << "COUNT\t\t" << "RATING";
-    GuiSort(data, 0, data.size()-1);
+    sortVector(data, 0, (int) data.size() - 1);
     for (auto player : data) {
         int id = player.first;
         float user_rating = player.second;
@@ -151,13 +138,12 @@ void printUsrTable(vector<pair<int,float>> &data) {
         float media = ratings[id] / (float) ratingCount[id];
         cout << endl << id << "\t\t" << names[id];
         cout << string(50 - names[id].size(), ' ');
-        if(media == 0){
+        if (media == 0) {
             cout << "noRate" << "\t\t";
-        }
-        else{
+        } else {
             cout << fixed << setprecision(5) << media << "\t\t";
         }
-        cout << ratingCount[id]<< "\t\t";
+        cout << ratingCount[id] << "\t\t";
         cout << fixed << setprecision(1) << user_rating;
     }
     cout << "\n";
@@ -169,9 +155,8 @@ void searchByName(Node *root, const string &name) {
 
     vector<int> ids;
     ids.reserve(namesPre.size());
-    for (const auto &i : namesPre) {
+    for (const auto &i : namesPre)
         ids.push_back(i.second);
-    }
 
     printTable(ids);
 }
@@ -182,6 +167,7 @@ vector<int> intersection(vector<int> v1, vector<int> v2) {
     sort(v1.begin(), v1.end());
     sort(v2.begin(), v2.end());
     set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+
     return v3;
 }
 
@@ -189,20 +175,18 @@ void searchByTag(const string &t) {
     vector<string> requestedTags = splitLine(t, "'");
 
     vector<int> aux;
-    if (tags.count(requestedTags[0])){
+    if (tags.count(requestedTags[0])) {
         aux = tags.getData(requestedTags[0]);
-    }
-    else{
-        cout << "inexistent tag\n";
+    } else {
+        cout << "Inexistent tag.\n";
         return;
     }
 
-    for (int i = 1; i < requestedTags.size(); i++){
-        if (tags.count(requestedTags[i])){
+    for (int i = 1; i < requestedTags.size(); i++) {
+        if (tags.count(requestedTags[i])) {
             aux = intersection(aux, tags.getData(requestedTags[i]));
-        }
-        else{
-            cout << "inexistent tag\n";
+        } else {
+            cout << "Inexistent tag.\n";
             return;
         }
     }
@@ -212,26 +196,25 @@ void searchByTag(const string &t) {
 void searchTopPos(int pos, string info) {
     info.erase(remove(info.begin(), info.end(), '\''), info.end());
     vector<int> aux;
-    for (int i = 0; i < POS_N; i++){
+    for (int i = 0; i < POS_N; i++)
         if (posCodes[i] == info) {
-            aux = positions[i].getData(); break;
+            aux = positions[i].getData();
+            break;
         }
-    }
 
-    if(aux.size() == 0){
-        cout << "no player with this tag\n";
+    if (aux.empty()) {
+        cout << "No player with this tag.\n";
         return;
     }
 
-    GuiSort(aux, 0, (int) aux.size() - 1);
+    sortVector(aux, 0, (int) aux.size() - 1);
     if (aux.size() > pos)
         aux.resize(pos);
     printTable(aux);
-
 }
 
 void helpDisplay() {
-    cout << " -> Opcoes Disponiveis :\n";
+    cout << " -> Available Options:\n";
     cout << " player <name or prefix>\n";
     cout << " user <userID>\n";
     cout << " top<N> '<position>'\n";
@@ -243,7 +226,7 @@ void mainLoop() {
     string type, info;
     cout << endl;
     cout << string(10, ' ') << "TRABALHO FINAL - CLASSIFICACAO E PESQUISA DE DADOS\n";
-    cout << string(15, ' ') << "PESQUISA EM DATASET DE FIFA21 - PLAYERS\n";
+    cout << string(18, ' ') << "SEARCH IN FIFA21 DATASET - PLAYERS\n";
     cout << string(17, ' ') << "ARTHUR BITTENCOURT HOFF -- 00324628\n";
     cout << string(14, ' ') << "LUIS GUILHERME FERNANDES MELO -- 00326620\n\n";
 
@@ -255,8 +238,12 @@ void mainLoop() {
         if (type == "player") {
             searchByName(trieNames, info);
         } else if (type == "user") {
-            vector<pair<int,float>> aux = usersRatings.getData(stoi(info));
-            printUsrTable(aux);
+            if (!is_number(info)) {
+                cout << "Invalid user id.\n";
+            } else {
+                vector<pair<int, float>> aux = usersRatings.getData(stoi(info));
+                printUsrTable(aux);
+            }
         } else if (type.substr(0, 3) == "top") {
             searchTopPos(stoi(type.substr(3, 5)), info);
         } else if (type == "tags") {
@@ -290,7 +277,7 @@ int main() {
 
     auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
 
-    cout << "Dados processados em " << duration.count() << " segundos" << endl; 
+    cout << "Dados processados em " << duration.count() << " segundos" << endl;
 
     mainLoop();
 
