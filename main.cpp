@@ -131,6 +131,8 @@ void printTable(const vector<int> &ids) {
 void printUsrTable(vector<pair<int, float>> &data) {
     cout << "FIFA_ID\t\t" << "NAME" << string(46, ' ') << "GLOBAL_RATING\t\t" << "COUNT\t\t" << "RATING";
     sortVector(data, 0, (int) data.size() - 1);
+    if (data.size() > 20)
+        data.resize(20);
     for (auto player : data) {
         int id = player.first;
         float user_rating = player.second;
